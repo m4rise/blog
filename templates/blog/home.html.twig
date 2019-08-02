@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'accueil{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+    <header class="masthead">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>Blog de Damien DUVAL</h1>
+                        <span class="subheading">ici la phrase d'accroche</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <section id="contact">
+        <h3>Contact</h3>
+        {% for message in app.flashes('contact.success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        <div class="contactForm">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col">{{ form_row(form.firstname) }}</div>
+                <div class="col">{{ form_row(form.lastname) }}</div>
+                <div class="col">{{ form_row(form.email) }}</div>
+            </div>
+            {{ form_rest(form) }}
+            <div class="form-group">
+                <button class="btn btn-success" type="submit">Envoyer</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </section>
+
+    <div>
+        <h4>Mon CV</h4>
+        <a class="btn btn-primary" href="{{ path('cv') }}">Voir mon CV</a>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <ul class="list-inline text-center socials">
+                        <li class="list-inline-item">
+                            <a href="#contact">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.linkedin.com/in/damien-duval">
+                          <span class="fa-stack fa-lg">
+                            <i class="fas fa-circle fa-stack-2x"></i>
+                            <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                          </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://github.com/m4rise">
+                          <span class="fa-stack fa-lg">
+                            <i class="fas fa-circle fa-stack-2x"></i>
+                            <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                          </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
