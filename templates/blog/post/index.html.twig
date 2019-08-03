@@ -8,6 +8,16 @@
 
 {% block body %}
     <h1>Liste des articles</h1>
+    <div class="row justify-content-center">
+        {%  for post in paginatedPosts %}
+            <div class="col-12">
+                {% include('blog/post/_post.html.twig') %}
+            </div>
+        {% endfor %}
+        <div class="navigation">
+            {{ knp_pagination_render(paginatedPosts) }}
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}

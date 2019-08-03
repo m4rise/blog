@@ -1,0 +1,13 @@
+<div class="card mb-4 w-100">
+    <div class="card-body">
+        <h5 class="card-title">
+            <a href="{{ path('post.show', {slug: post.slug, id: post.id}) }}">
+                {{ post.title }}
+            </a>
+        </h5>
+        <h6 class="card-subtitle mb-2 text-muted">mis à jour le {{ post.updatedAt | date('d/m/Y à H:i') }}</h6>
+        <p class="card-text">
+            {{ post.lede }}
+        </p>
+    </div>
+</div>

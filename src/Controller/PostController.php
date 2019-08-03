@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Repository\PostRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -11,12 +15,32 @@ use Symfony\Component\Routing\Annotation\Route;
 class PostController extends AbstractController
 {
     /**
-     * @Route("/", name="post.index")
+     * @var PostRepository
      */
-    public function index()
+    private $postRepository;
+
+    public function __construct(PostRepository $postRepository)
     {
+        $this->postRepository = $postRepository;
+    }
+
+    /**
+     * @Route("/", name="post.index")
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @return Response
+     */
+    public function index(PaginatorInterface $paginator, Request $request): Response
+    {
+        $posts = $paginator->paginate(
+            $this->postRepository->allOrderedPostsQuery(),
+            $request->query->getInt('p', 1),
+            15
+        );
+
         return $this->render('blog/post/index.html.twig', [
-            'current_menu' => 'index'
+            'current_menu' => 'index',
+            'paginatedPosts' => $posts
         ]);
     }
 
@@ -26,8 +50,5 @@ class PostController extends AbstractController
     public function show()
     {
         #TODO Controller
-        #return $this->render('blog/post/show.html.twig', [
-        #'current_menu' => 'index'
-        #]);
     }
 }
