@@ -4,3 +4,10 @@
 footer i {
     color: rgba(0, 0, 0, 0.7)
 }
+
+
+/* <<< POST SHOW SPECIFIC CSS */
+#postArticle .postInfo span {
+    display: block;
+}
+/* >>> END POST SHOW SPECIFIC CSS */

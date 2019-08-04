@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <article id="postArticle">
+        <div>
+            <h1>{{ post.title }}</h1>
+            <div class="postInfo">
+                <span class="">par {{ post.author }}</span>
+                <span class="text-muted">dernière modification le {{ post.updatedAt | date('d/m/Y \à H:i') }}</span>
+            </div>
+        </div>
+
+        <div class="jumbotron">
+            {{ post.lede }}
+        </div>
+        <p>
+            {{ post.content | nl2br}}
+        </p>
+    </article>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

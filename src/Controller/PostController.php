@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
 use App\Repository\PostRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -47,8 +48,19 @@ class PostController extends AbstractController
     /**
      * @Route("/{slug}-{id}", name="post.show", requirements={"slug" = "[a-zA-Z0-9\-]+", "id" = "^\d+$" })
      */
-    public function show()
+    public function show(Post $post, string $slug)
     {
-        #TODO Controller
+        // redirection si le slug ne correspond pas à l'id (référencement)
+        if($post->getSlug() !== $slug) {
+            return $this->redirectToRoute('post.show', [
+                'id' => $post->getId(),
+                'slug' => $post->getSlug()
+            ], 301);
+        }
+
+        return $this->render('blog/post/show.html.twig', [
+            'current_menu' => 'posts',
+            'post' => $post
+        ]);
     }
 }
