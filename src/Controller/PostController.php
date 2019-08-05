@@ -59,7 +59,7 @@ class PostController extends AbstractController
         }
 
         return $this->render('blog/post/show.html.twig', [
-            'current_menu' => 'posts',
+            'current_menu' => 'index',
             'post' => $post
         ]);
     }

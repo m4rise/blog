@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table("post")
@@ -20,21 +21,25 @@ class Post
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=5)
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=10)
      */
     private $lede;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=10)
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $author;
 
@@ -57,14 +62,14 @@ class Post
     private $slug;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default":true})
      */
-    private $isPublished;
+    private $isPublished = true;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default":true})
      */
-    private $isVisible;
+    private $isVisible = true;
 
     public function getId(): ?int
     {

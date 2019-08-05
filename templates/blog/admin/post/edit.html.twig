@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer un article{% endblock %}
+
+{% block body %}
+    <h1>Editer l'article</h1>
+
+    {{ include('blog/admin/post/_form.html.twig', {'button_label': 'Modifier'}) }}
+    {{ include('blog/admin/post/_delete_form.html.twig') }}
+    <a href="{{ path('admin.post.index') }}">Retour au menu</a>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
