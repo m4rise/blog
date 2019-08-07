@@ -50,7 +50,7 @@ abstract class AppFixtures extends Fixture
 
             $this->manager->persist($entity);
 
-            $this->addReference($groupName . '_' . $i, $entity);
+            $this->addReference($groupName . '_' . ($i+1), $entity);
         }
     }
 }

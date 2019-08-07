@@ -20,9 +20,9 @@ class RegistrationFormType extends AbstractType
 
         $builder
             ->add('email', EmailType::class, [
-                'label' => "Email",
+                'label' => 'Email',
                 'attr' => [
-                    'placeholder' => "Votre email"
+                    'placeholder' => 'Votre email'
                 ]
             ])
             ->add('nickname', TextType::class, [
@@ -41,19 +41,19 @@ class RegistrationFormType extends AbstractType
                     new Length([
                         'min' => 8,
                         'max' => 4096,
-                        'minMessage' => "Votre mot de passe doit contenir au moins 8 caractères"
+                        'minMessage' => 'Votre mot de passe doit contenir au moins 8 caractères'
                     ]),
                 ],
                 'first_options' => [
                     'label' => 'Mot de passe',
                     'attr' => [
-                        'placeholder' => "Votre mot de passe"
+                        'placeholder' => 'Votre mot de passe'
                     ]
                 ],
                 'second_options' => [
                     'label' => 'Confirmation mot de passe',
                     'attr' => [
-                        'placeholder' => "Confirmez votre mot de passe"
+                        'placeholder' => 'Confirmez votre mot de passe'
                     ]
                 ],
                 'invalid_message' => 'Les mots de passe ne correspondent pas, veuillez réessayer'

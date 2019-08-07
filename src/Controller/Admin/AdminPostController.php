@@ -17,14 +17,9 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AdminPostController extends AbstractController
 {
-    /**
-     * @var PostRepository
-     */
+
     private $postRepository;
 
-    /**
-     * @var ObjectManager
-     */
     private $em;
 
     public function __construct(PostRepository $postRepository, ObjectManager $em)

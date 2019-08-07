@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -27,9 +28,16 @@ class PostRepository extends ServiceEntityRepository
             ->getQuery();
     }
 
+    public static function createIsValidatedCommentCriteria (): Criteria
+    {
+        return Criteria::create()
+            ->andWhere(Criteria::expr()->eq('isValidated', true))
+            ->orderBy(['createdAt' => 'DESC']);
+    }
+
     private function findLatestPosts(): QueryBuilder
     {
         return $this->createQueryBuilder('p')
-            ->orderBy('p.updated_at', 'DESC');
+            ->orderBy('p.updatedAt', 'DESC');
     }
 }

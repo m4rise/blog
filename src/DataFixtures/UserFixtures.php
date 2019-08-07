@@ -20,7 +20,7 @@ class UserFixtures extends AppFixtures
 
     public function loadData(ObjectManager $manager): void
     {
-        $this->createMany(3, 'user_admin', function ($i) {
+        $this->createMany(3, User::class.'_admin', function ($i) {
             $user = new User();
             $user
                 ->setEmail(sprintf('admin%d@email.com', $i))
@@ -31,7 +31,7 @@ class UserFixtures extends AppFixtures
             return $user;
         });
 
-        $this->createMany(20, 'user_normal', function ($i) {
+        $this->createMany(20, User::class.'_normal', function ($i) {
             $user = new User();
             $user
                 ->setEmail(sprintf('user%d@email.com', $i))

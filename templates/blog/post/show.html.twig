@@ -1,22 +1,69 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <article id="postArticle">
-        <div>
+    <article class="row" id="postArticle">
+        <div class="col-sm-12">
             <h1>{{ post.title }}</h1>
             <div class="postInfo">
-                <span class="">par {{ post.author }}</span>
-                <span class="text-muted">dernière modification le {{ post.updatedAt | date('d/m/Y \à H:i') }}</span>
+                <span class="">Par {{ post.author }}</span>
+                <span class="text-muted">Dernière modification le {{ post.updatedAt | date('d/m/Y \à H:i') }}</span>
             </div>
         </div>
 
-        <div class="jumbotron">
+        <div class="col-sm-12 jumbotron">
             {{ post.lede }}
         </div>
-        <p>
+        <p class="col-sm-12">
             {{ post.content | nl2br }}
         </p>
     </article>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>
+                <i class="pr-3 fa fa-comment"></i>{{ post.validatedComments|length }} Comments
+            </h3>
+            <hr>
+            {% for message in app.flashes('comment.success') %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+            {{ form_start(form) }}
+                <span>Ajouter un commentaire :</span>
+                {{ form_row(form.title) }}
+                {{ form_row(form.content) }}
+                <button class="btn btn-primary float-right">Commenter !</button>
+            {{ form_end(form) }}
+
+            {#            TODO: comment form #}
+            {#            {% if app.user %}#}
+            {#                <div class="row mb-5">#}
+            {#                    <div class="col-sm-12">#}
+            {#                        <div class="comment-container d-inline-block pl-3 align-top">#}
+            {#                            <span class="commenter-name">{{ app.user.nickname }}</span>#}
+            {#                            <div class="form-group">#}
+            {#                                <textarea class="form-control comment-form" id="postText" rows="1"></textarea>#}
+            {#                            </div>#}
+            {#                            <button type="submit" class="btn btn-info">Comment</button>#}
+            {#                        </div>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#            {% endif %}#}
+
+            {% for comment in post.validatedComments %}
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="d-inline-block pl-3 align-top">
+                            <span>{{ comment.author.nickname }}</span>
+                            <small>{{ comment.createdAt|date('d/m/y à H:i') }}</small>
+                            <strong>{{ comment.title }}</strong>
+                            <p>{{ comment.content | nl2br }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <hr>
+        </div>
+    </div>
 {% endblock %}
 
 {% block title %}

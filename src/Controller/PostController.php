@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Post;
+use App\Form\CommentType;
 use App\Repository\PostRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,9 +23,15 @@ class PostController extends AbstractController
      */
     private $postRepository;
 
-    public function __construct(PostRepository $postRepository)
+    /**
+     * @var EntityManagerInterface
+     */
+    private $em;
+
+    public function __construct(PostRepository $postRepository, EntityManagerInterface $em)
     {
         $this->postRepository = $postRepository;
+        $this->em = $em;
     }
 
     /**
@@ -48,7 +57,7 @@ class PostController extends AbstractController
     /**
      * @Route("/{slug}-{id}", name="post.show", requirements={"slug" = "[a-zA-Z0-9\-]+", "id" = "^\d+$" })
      */
-    public function show(Post $post, string $slug)
+    public function show(Post $post, string $slug, Request $request)
     {
         // redirection si le slug ne correspond pas à l'id (référencement)
         if ($post->getSlug() !== $slug) {
@@ -58,9 +67,29 @@ class PostController extends AbstractController
             ], 301);
         }
 
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment
+                ->setAuthor($this->getUser())
+                ->setPost($post)
+            ;
+            $this->em->persist($comment);
+            $this->em->flush();
+            $this->addFlash('comment.success', 'Merci pour votre commentaire, il sera bientôt affiché après vérification');
+
+            return $this->redirectToRoute('post.show', [
+                'slug' => $post->getSlug(),
+                'id' => $post->getId()
+            ]);
+        }
+
         return $this->render('blog/post/show.html.twig', [
             'current_menu' => 'index',
-            'post' => $post
+            'post' => $post,
+            'form' => $form->createView()
         ]);
     }
 }
