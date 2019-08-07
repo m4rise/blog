@@ -3,12 +3,14 @@
 namespace App\Notifications;
 
 use App\Entity\Contact;
+use Swift_Mailer;
+use Swift_Message;
 use Twig\Environment;
 
 class ContactNotification
 {
     /**
-     * @var \Swift_Mailer
+     * @var Swift_Mailer
      */
     private $mailer;
     /**
@@ -18,10 +20,10 @@ class ContactNotification
 
     /**
      * ContactNotification constructor.
-     * @param \Swift_Mailer $mailer
+     * @param Swift_Mailer $mailer
      * @param Environment $renderer
      */
-    public function __construct(\Swift_Mailer $mailer, Environment $renderer)
+    public function __construct(Swift_Mailer $mailer, Environment $renderer)
     {
         $this->mailer = $mailer;
         $this->renderer = $renderer;
@@ -30,7 +32,7 @@ class ContactNotification
     public function notify(Contact $contact)
     {
         #TODO envoi du message en HTML et non en raw
-        $message = (new \Swift_Message($contact->getLastname().' '.$contact->getFirstname().' souhaite vous contacter'))
+        $message = (new Swift_Message($contact->getLastname() . ' ' . $contact->getFirstname() . ' souhaite vous contacter'))
             ->setFrom('noreply@damien-duval.fr')
             ->setTo('contact@damien-duval.fr')
             ->setReplyTo($contact->getEmail())

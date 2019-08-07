@@ -24,14 +24,12 @@ class PostRepository extends ServiceEntityRepository
     public function allOrderedPostsQuery(): Query
     {
         return $this->findLatestPosts()
-            ->getQuery()
-        ;
+            ->getQuery();
     }
 
     private function findLatestPosts(): QueryBuilder
     {
         return $this->createQueryBuilder('p')
-            ->orderBy('p.updated_at', 'DESC')
-            ;
+            ->orderBy('p.updated_at', 'DESC');
     }
 }

@@ -51,7 +51,7 @@ class PostController extends AbstractController
     public function show(Post $post, string $slug)
     {
         // redirection si le slug ne correspond pas à l'id (référencement)
-        if($post->getSlug() !== $slug) {
+        if ($post->getSlug() !== $slug) {
             return $this->redirectToRoute('post.show', [
                 'id' => $post->getId(),
                 'slug' => $post->getSlug()

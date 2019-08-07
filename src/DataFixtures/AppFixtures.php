@@ -28,16 +28,29 @@ abstract class AppFixtures extends Fixture
         $this->loadData($manager);
     }
 
-    public function createMany(string $className, int $count, callable $factory): void
+    /**
+     * Create many objects at once:
+     *
+     *      $this->createMany(50, 'classname_or_custom_name' function(int $i) {
+     *          $entity = new Class();
+     *          $user->setField('value');
+     *
+     *          return $entity;
+     *      });
+     *
+     * @param int $count
+     * @param string $groupName used for references (can be the class name, or a custom name)
+     * @param callable $factory
+     */
+    public function createMany(int $count, string $groupName, callable $factory): void
     {
-        for ($i=0; $i<$count; $i++) {
-            $entity = new $className();
-            $factory($entity, $i);
+        for ($i = 0; $i < $count; $i++) {
+
+            $entity = $factory($i);
 
             $this->manager->persist($entity);
 
-            //référence chaque ligne pour les besoins futurs de relation entre tables
-            $this->addReference($className.'_'.$i, $entity);
+            $this->addReference($groupName . '_' . $i, $entity);
         }
     }
 }

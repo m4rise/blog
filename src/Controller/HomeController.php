@@ -26,7 +26,7 @@ class HomeController extends AbstractController
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $notification->notify($contact);
             $this->addFlash('contact.success', 'Votre message a bien été envoyé, je vous recontacterai dans les meilleurs délais.');
             return $this->redirectToRoute('home', ['_fragment' => 'contact']);

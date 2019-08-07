@@ -98,7 +98,7 @@ class AdminPostController extends AbstractController
      */
     public function delete(Request $request, Post $post): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token'))) {
             $this->em->remove($post);
             $this->em->flush();
             $this->addFlash('success', 'Article correctement supprimé');

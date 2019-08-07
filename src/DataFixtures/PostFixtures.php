@@ -4,14 +4,14 @@ namespace App\DataFixtures;
 
 use App\Entity\Post;
 use Doctrine\Common\Persistence\ObjectManager;
-use Faker\Factory;
-use Faker\Generator;
 
 class PostFixtures extends AppFixtures
 {
     public function loadData(ObjectManager $manager): void
     {
-        $this->createMany(Post::class, 50, function (Post $post, $count) {
+        $this->createMany(50, 'post', function ($count) {
+
+            $post = new Post();
             $post
                 ->setTitle($this->faker->sentence())
                 ->setLede($this->faker->sentences(4, true))
@@ -21,6 +21,8 @@ class PostFixtures extends AppFixtures
                 ->setUpdatedAt($this->faker->dateTimeBetween('-6 months', 'now'))
                 ->setIsPublished($this->faker->boolean(90))
                 ->setIsVisible($this->faker->boolean(90));
+
+            return $post;
         });
 
         $manager->flush();

@@ -9,7 +9,7 @@
 {% block body %}
     <h1>Liste des articles</h1>
     <div class="row justify-content-center">
-        {%  for post in paginatedPosts %}
+        {% for post in paginatedPosts %}
             <div class="col-12">
                 {% include('blog/post/_post.html.twig') %}
             </div>

@@ -15,8 +15,7 @@ class PostType extends AbstractType
             ->add('title')
             ->add('lede')
             ->add('content')
-            ->add('author')
-        ;
+            ->add('author');
     }
 
     public function configureOptions(OptionsResolver $resolver)
