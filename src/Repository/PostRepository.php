@@ -38,6 +38,6 @@ class PostRepository extends ServiceEntityRepository
     private function findLatestPosts(): QueryBuilder
     {
         return $this->createQueryBuilder('p')
-            ->orderBy('p.updatedAt', 'DESC');
+            ->orderBy('p.createdAt', 'DESC');
     }
 }

@@ -1,0 +1,16 @@
+{% extends 'admin.base.html.twig' %}
+
+{% block title %}Panneau d'administration{% endblock %}
+{% block admin_header_title %}Panneau d'administration{% endblock %}
+
+{% block body %}
+    <div class="row text-center">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <a class="btn btn-info btn-block mb-3" href="{{ path('admin.post.index') }}">Articles</a>
+            <a class="btn btn-info btn-block mb-3" href="{{ path('admin.comment.index') }}">Commentaires</a>
+        </div>
+    </div>
+{% endblock %}
+
+
+

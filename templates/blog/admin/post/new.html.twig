@@ -1,16 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin.base.html.twig' %}
 
-{% block title %}Nouvel article{% endblock %}
+{% block title %}Créer un nouvel article{% endblock %}
+{% block admin_header_title %}Créer un nouvel article{% endblock %}
 
 {% block body %}
-    <h1>Créer un nouvel article</h1>
-
     {{ include('blog/admin/post/_form.html.twig') }}
-
     <div>
         <a href="{{ path('admin.post.index') }}">Retour au menu</a>
     </div>
-{% endblock %}
-
-{% block footer %}
 {% endblock %}

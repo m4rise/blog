@@ -20,7 +20,7 @@ class PostType extends AbstractType
                     'placeholder' => "Titre de l'article..."
                 ]
             ])
-            ->add('lede', TextType::class, [
+            ->add('lede', TextareaType::class, [
                 'label' => 'Chapô',
                 'attr' => [
                     'placeholder' => "Chapô de l'article"

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Comment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -20,17 +21,18 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
-    public function allPendingComments(): array
+    public function allPendingCommentsQuery(): Query
     {
         return $this->findOrderedComments()
             ->where('p.isValidated = false')
-            ->getQuery()
-            ->getResult();
+            ->join('p.post', 'a')
+            ->addSelect('a')
+            ->getQuery();
     }
 
     private function findOrderedComments(): QueryBuilder
     {
         return $this->createQueryBuilder('p')
-            ->orderBy('p.updatedAt', 'DESC');
+            ->orderBy('p.createdAt', 'DESC');
     }
 }

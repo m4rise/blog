@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="admin-heading">
+                    <h1>
+                        {% block admin_header_title %}
+                        {% endblock %}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+
+

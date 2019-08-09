@@ -27,19 +27,19 @@ class Post
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=5)
+     * @Assert\Length(min="5")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\Length(min=10)
+     * @Assert\Length(min="10", max="350")
      */
     private $lede;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\Length(min=10)
+     * @Assert\Length(min="10")
      */
     private $content;
 
@@ -66,7 +66,7 @@ class Post
     private $isVisible = true;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="post")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="post", cascade={"remove"})
      */
     private $comments;
 
@@ -183,7 +183,7 @@ class Post
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
-            $comment->setArticle($this);
+            $comment->setPost($this);
         }
 
         return $this;
@@ -194,8 +194,8 @@ class Post
         if ($this->comments->contains($comment)) {
             $this->comments->removeElement($comment);
             // set the owning side to null (unless already changed)
-            if ($comment->getArticle() === $this) {
-                $comment->setArticle(null);
+            if ($comment->getPost() === $this) {
+                $comment->setPost(null);
             }
         }
 

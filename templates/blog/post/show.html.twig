@@ -1,63 +1,68 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <article class="row" id="postArticle">
-        <div class="col-sm-12">
-            <h1>{{ post.title }}</h1>
-            <div class="postInfo">
-                <span class="">Par {{ post.author }}</span>
-                <span class="text-muted">Dernière modification le {{ post.updatedAt | date('d/m/Y \à H:i') }}</span>
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block header %}
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="post-heading">
+                    <h1>{{ post.title }}</h1>
+                    <h2 class="subheading">{{ post.lede }}</h2>
+                    <span class="meta">
+                        Posté par
+                        <a href="#">{{ post.author }}</a>
+                        | dernière modification le {{ post.updatedAt | date('d/m/Y \à H:i') }}
+                    </span>
+                </div>
             </div>
         </div>
+    </div>
+{% endblock %}
 
-        <div class="col-sm-12 jumbotron">
-            {{ post.lede }}
-        </div>
-        <p class="col-sm-12">
+{% block body %}
+    <article class="row">
+        <p class="col-lg-8 col-md-10 mx-auto">
             {{ post.content | nl2br }}
         </p>
     </article>
 
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-lg-8 col-md-10 mx-auto">
             <h3>
-                <i class="pr-3 fa fa-comment"></i>{{ post.validatedComments|length }} Comments
+                <i class="pr-3 fa fa-comment"></i>Commentaires ({{ post.validatedComments | length }})
             </h3>
             <hr>
-            {% for message in app.flashes('comment.success') %}
-                <div class="alert alert-success">{{ message }}</div>
-            {% endfor %}
-            {{ form_start(form) }}
-                <span>Ajouter un commentaire :</span>
-                {{ form_row(form.title) }}
-                {{ form_row(form.content) }}
-                <button class="btn btn-primary float-right">Commenter !</button>
-            {{ form_end(form) }}
-
-            {#            TODO: comment form #}
-            {#            {% if app.user %}#}
-            {#                <div class="row mb-5">#}
-            {#                    <div class="col-sm-12">#}
-            {#                        <div class="comment-container d-inline-block pl-3 align-top">#}
-            {#                            <span class="commenter-name">{{ app.user.nickname }}</span>#}
-            {#                            <div class="form-group">#}
-            {#                                <textarea class="form-control comment-form" id="postText" rows="1"></textarea>#}
-            {#                            </div>#}
-            {#                            <button type="submit" class="btn btn-info">Comment</button>#}
-            {#                        </div>#}
-            {#                    </div>#}
-            {#                </div>#}
-            {#            {% endif %}#}
+            {% if app.user %}
+                {% for message in app.flashes('comment.success') %}
+                    <div class="alert alert-success text-center">{{ message }}</div>
+                {% endfor %}
+                <div id="addComment" class="mb-2">
+                    {{ form_start(form, {'action': path('post.show', {'slug': post.slug, 'id': post.id, '_fragment': 'addComment'}) }) }}
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.content) }}
+                    <div class="form-group text-right">
+                        <button class="btn btn-primary btn-block">Commenter !</button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+                <hr>
+            {% else %}
+                <div id="addComment" class="mb-2">
+                    <span class="btn btn-primary btn-block">Vous devez être inscrit et identifié pour pouvoir poster un message !</span>
+                </div>
+            {% endif %}
 
             {% for comment in post.validatedComments %}
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="d-inline-block pl-3 align-top">
-                            <span>{{ comment.author.nickname }}</span>
-                            <small>{{ comment.createdAt|date('d/m/y à H:i') }}</small>
-                            <strong>{{ comment.title }}</strong>
-                            <p>{{ comment.content | nl2br }}</p>
-                        </div>
+                <div class="post-comment p-3">
+                    <div>
+                        <span><a href="#">{{ comment.author.nickname }}</a></span>
+                        <small>le {{ comment.createdAt|date('d/m/y à H:i') }} :</small>
+                    </div>
+                    <div class="py-1">
+                        <strong>{{ comment.title }}</strong>
+                        <p>{{ comment.content | nl2br }}</p>
                     </div>
                 </div>
             {% endfor %}
@@ -66,7 +71,5 @@
     </div>
 {% endblock %}
 
-{% block title %}
 
-{% endblock %}
 

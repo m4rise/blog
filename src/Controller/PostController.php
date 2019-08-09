@@ -49,7 +49,7 @@ class PostController extends AbstractController
         );
 
         return $this->render('blog/post/index.html.twig', [
-            'current_menu' => 'index',
+            'current_menu' => 'post.index',
             'paginatedPosts' => $posts
         ]);
     }
@@ -87,7 +87,7 @@ class PostController extends AbstractController
         }
 
         return $this->render('blog/post/show.html.twig', [
-            'current_menu' => 'index',
+            'current_menu' => 'post.index',
             'post' => $post,
             'form' => $form->createView()
         ]);

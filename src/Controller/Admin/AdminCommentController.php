@@ -7,6 +7,7 @@ namespace App\Controller\Admin;
 use App\Entity\Comment;
 use App\Repository\CommentRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,9 +32,13 @@ class AdminCommentController extends AbstractController
     /**
      * @Route("/", name="admin.comment.index", methods={"GET"})
      */
-    public function index(): Response
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
-        $pendingComments = $this->commentRepository->allPendingComments();
+        $pendingComments = $paginator->paginate(
+            $this->commentRepository->allPendingCommentsQuery(),
+            $request->query->getInt('p', 1),
+            15
+        );
 
         return $this->render('blog/admin/comment/index.html.twig', [
             'pendingComments' => $pendingComments

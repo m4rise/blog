@@ -1,13 +1,14 @@
-<div class="card mb-4 w-100">
-    <div class="card-body">
-        <h5 class="card-title">
-            <a href="{{ path('post.show', {slug: post.slug, id: post.id}) }}">
-                {{ post.title }}
-            </a>
-        </h5>
-        <h6 class="card-subtitle mb-2 text-muted">mis à jour le {{ post.updatedAt | date('d/m/Y à H:i') }}</h6>
-        <p class="card-text">
+<div class="post-preview">
+    <a href="{{ path('post.show', {slug: post.slug, id: post.id}) }}">
+        <h2 class="post-title">
+            {{ post.title }}
+        </h2>
+        <h3 class="post-subtitle">
             {{ post.lede }}
-        </p>
-    </div>
+        </h3>
+    </a>
+    <p class="post-meta">Posté par
+        <a href="#">{{ post.author }}</a>
+        | dernière modification : {{ post.updatedAt | date('d/m/Y à H:i') }}</p>
 </div>
+<hr>

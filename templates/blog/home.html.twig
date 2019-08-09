@@ -2,53 +2,48 @@
 
 {% block title %}Page d'accueil{% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-{% endblock %}
-
 {% block header %}
-    {{ parent() }}
-    <header class="masthead">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-md-10 mx-auto">
-                    <div class="site-heading">
-                        <h1>Damien DUVAL</h1>
-                        <span class="subheading">ici la phrase d'accroche</span>
-                    </div>
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Damien DUVAL</h1>
+                    <span class="subheading">L'actu dev' en toute décontraction</span>
                 </div>
             </div>
         </div>
-    </header>
-{% endblock %}
-
-{% block body %}
-    <section id="contact">
-        <h3>Contact</h3>
-        {% for message in app.flashes('contact.success') %}
-            <div class="alert alert-success">{{ message }}</div>
-        {% endfor %}
-        <div class="contactForm">
-            {{ form_start(form) }}
-            <div class="row">
-                <div class="col">{{ form_row(form.firstname) }}</div>
-                <div class="col">{{ form_row(form.lastname) }}</div>
-                <div class="col">{{ form_row(form.email) }}</div>
-            </div>
-            {{ form_rest(form) }}
-            <div class="form-group">
-                <button class="btn btn-success" type="submit">Envoyer</button>
-            </div>
-            {{ form_end(form) }}
-        </div>
-    </section>
-    <div>
-        <h4>Mon CV</h4>
-        <a class="btn btn-primary" href="{{ path('cv') }}">Voir mon CV</a>
     </div>
 {% endblock %}
 
-{% block javascripts %}
-    {{ parent() }}
+{% block body %}
+    <div class="cv row">
+        <div class="contact col-lg-8 col-md-10 mx-auto text-center">
+            <h3 class="mb-3">Accédez à mon CV</h3>
+            <a class="btn btn-primary" href="{{ path('cv') }}">Voir mon CV</a>
+        </div>
+    </div>
+    <section class="row">
+        <div id="contact" class="col-lg-8 col-md-10 mx-auto">
+            <h3 class="text-center mb-3">Contactez moi !</h3>
+            {% for message in app.flashes('contact.success') %}
+                <div class="alert alert-success text-center">{{ message }}</div>
+            {% endfor %}
+            <div class="contactForm">
+                {{ form_start(form) }}
+                <div class="row">
+                    <div class="col-xs-12 col-md-4">{{ form_row(form.firstname) }}</div>
+                    <div class="col-xs-12 col-md-4">{{ form_row(form.lastname) }}</div>
+                    <div class="col-xs-12 col-md-4">{{ form_row(form.email) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">{{ form_row(form.message) }}</div>
+                    <div class="fcol-xs-12 col-md-12">
+                        <button class="btn btn-primary btn-block" type="submit">Envoyer</button>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </section>
 {% endblock %}

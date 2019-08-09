@@ -20,6 +20,7 @@ class CommentFixtures extends AppFixtures implements DependentFixtureInterface
                 ->setAuthor($this->getReference(User::class . '_normal_' . mt_rand(1, 20)))
                 ->setPost($this->getReference(Post::class . '_' . mt_rand(1, 50)))
                 ->setCreatedAt($this->faker->dateTimeBetween('-1 years', '-15 days'))
+                ->setUpdatedAt($this->faker->dateTimeBetween('-1 years', '-15 days'))
                 ->setIsValidated($this->faker->boolean(70));
 
             return $comment;

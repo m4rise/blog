@@ -2,24 +2,31 @@
 
 {% block title %}Liste des articles{% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-{% endblock %}
-
-{% block body %}
-    <h1>Liste des articles</h1>
-    <div class="row justify-content-center">
-        {% for post in paginatedPosts %}
-            <div class="col-12">
-                {% include('blog/post/_post.html.twig') %}
+{% block header %}
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Tous nos articles</h1>
+                    <span class="subheading"></span>
+                </div>
             </div>
-        {% endfor %}
-        <div class="navigation">
-            {{ knp_pagination_render(paginatedPosts) }}
         </div>
     </div>
 {% endblock %}
 
-{% block javascripts %}
-    {{ parent() }}
+{% block body %}
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+        {% for post in paginatedPosts %}
+                {% include('blog/post/_post.html.twig') %}
+        {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto d-flex justify-content-center">
+            {{ knp_pagination_render(paginatedPosts) }}
+        </div>
+    </div>
 {% endblock %}
