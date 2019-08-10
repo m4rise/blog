@@ -28,7 +28,7 @@
         </p>
     </article>
 
-    <div class="row">
+    <div id="addComment" class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
             <h3>
                 <i class="pr-3 fa fa-comment"></i>Commentaires ({{ post.validatedComments | length }})
@@ -38,7 +38,7 @@
                 {% for message in app.flashes('comment.success') %}
                     <div class="alert alert-success text-center">{{ message }}</div>
                 {% endfor %}
-                <div id="addComment" class="mb-2">
+                <div class="mb-2">
                     {{ form_start(form, {'action': path('post.show', {'slug': post.slug, 'id': post.id, '_fragment': 'addComment'}) }) }}
                     {{ form_row(form.title) }}
                     {{ form_row(form.content) }}

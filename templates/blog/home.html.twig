@@ -30,7 +30,7 @@
                 <div class="alert alert-success text-center">{{ message }}</div>
             {% endfor %}
             <div class="contactForm">
-                {{ form_start(form) }}
+                {{ form_start(form, {'action': path('home', {'_fragment': 'contact'}) }) }}
                 <div class="row">
                     <div class="col-xs-12 col-md-4">{{ form_row(form.firstname) }}</div>
                     <div class="col-xs-12 col-md-4">{{ form_row(form.lastname) }}</div>

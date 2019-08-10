@@ -43,7 +43,6 @@ class ContactType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        //TODO Traductions des noms avec 'translation_domain'
         $resolver->setDefaults([
             'data_class' => Contact::class
         ]);
