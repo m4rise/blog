@@ -22,7 +22,7 @@ class Comment
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=96)
      * @Assert\NotBlank()
      * @Assert\Length(min="8", max="96")
      */
