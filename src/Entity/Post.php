@@ -32,7 +32,7 @@ class Post
     private $title;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=350)
      * @Assert\Length(min="10", max="350")
      */
     private $lede;
