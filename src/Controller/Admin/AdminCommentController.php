@@ -51,6 +51,7 @@ class AdminCommentController extends AbstractController
     public function validate(Request $request, Comment $comment): Response
     {
         if ($this->isCsrfTokenValid('validate' . $comment->getId(), $request->request->get('_token'))) {
+            $this->addFlash('success.comment.validation', 'Le commentaire à bien été validé !');
             $comment->setIsValidated(true);
             $this->em->flush();
         }
