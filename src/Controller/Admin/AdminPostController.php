@@ -54,6 +54,7 @@ class AdminPostController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $post->setAuthor($this->getUser());
             $this->em->persist($post);
             $this->em->flush();
             $this->addFlash('success', 'Article correctement ajouté');

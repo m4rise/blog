@@ -5,7 +5,7 @@
 {% block body_class %}container-fluid{% endblock %}
 
 {% block body %}
-    {% for message in app.flashes('success.comment.validation') %}
+    {% for message in app.flashes('success') %}
         <div class="alert alert-success text-center">{{ message }}</div>
     {% endfor %}
     <div class="table-responsive">

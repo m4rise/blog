@@ -51,9 +51,9 @@ class AdminCommentController extends AbstractController
     public function validate(Request $request, Comment $comment): Response
     {
         if ($this->isCsrfTokenValid('validate' . $comment->getId(), $request->request->get('_token'))) {
-            $this->addFlash('success.comment.validation', 'Le commentaire à bien été validé !');
             $comment->setIsValidated(true);
             $this->em->flush();
+            $this->addFlash('success', 'Le commentaire a bien été validé !');
         }
 
         return $this->redirectToRoute('admin.comment.index');
@@ -67,6 +67,8 @@ class AdminCommentController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $comment->getId(), $request->request->get('_token'))) {
             $this->em->remove($comment);
             $this->em->flush();
+
+            $this->addFlash('success', 'Le commentaire a bien été supprimé !');
         }
 
         return $this->redirectToRoute('admin.comment.index');

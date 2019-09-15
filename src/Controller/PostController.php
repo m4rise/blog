@@ -43,7 +43,7 @@ class PostController extends AbstractController
     public function index(PaginatorInterface $paginator, Request $request): Response
     {
         $posts = $paginator->paginate(
-            $this->postRepository->allOrderedPostsQuery(),
+            $this->postRepository->allOrderedPostsWithJoinedUserTableQuery(),
             $request->query->getInt('p', 1),
             15
         );

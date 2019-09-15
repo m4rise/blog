@@ -28,6 +28,12 @@ class PostRepository extends ServiceEntityRepository
             ->getQuery();
     }
 
+    public function allOrderedPostsWithJoinedUserTableQuery()
+    {
+        return $this->latestPostsJoinedUserTable()
+            ->getQuery();
+    }
+
     public static function createIsValidatedCommentCriteria (): Criteria
     {
         return Criteria::create()
@@ -39,5 +45,12 @@ class PostRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->orderBy('p.createdAt', 'DESC');
+    }
+
+    private function latestPostsJoinedUserTable(): QueryBuilder
+    {
+        return $this->findLatestPosts()
+            ->join('p.author', 'a')
+            ->addSelect('a');
     }
 }

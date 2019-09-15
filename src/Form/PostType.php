@@ -32,12 +32,15 @@ class PostType extends AbstractType
                     'placeholder' => "Contenu de l'article"
                 ]
             ])
+            /*
             ->add('author', TextType::class, [
                 'label' => 'Auteur',
                 'attr' => [
-                    'placeholder' => "Nom de l'auteur..."
+                    'placeholder' => "Nom de l'auteur...",
                 ]
-            ]);
+            ])
+            */
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
